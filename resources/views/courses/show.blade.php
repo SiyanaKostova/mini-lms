@@ -5,9 +5,20 @@
 
         @auth
             @if (auth()->id() === $course->user_id)
-                <a href="{{ route('lectures.create', $course) }}" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded">
-                    + Add Lecture
-                </a>
+                <div class="flex items-center justify-between mt-4">
+                    <a href="{{ route('lectures.create', $course) }}" class="bg-green-600 text-white px-4 py-2 rounded">
+                        + Add Lecture
+                    </a>
+
+                    <form method="POST" action="{{ route('courses.destroy', $course) }}"
+                          onsubmit="return confirm('Are you sure you want to delete this course?');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="bg-red-600 text-white px-4 py-2 rounded">
+                            Delete Course
+                        </button>
+                    </form>
+                </div>
             @endif
         @endauth
     </div>
