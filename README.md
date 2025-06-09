@@ -9,7 +9,7 @@ A simple Laravel-based LMS where users can register, create courses, add YouTube
 - ✅ User authentication (Laravel Breeze)
 - 📚 Course creation & deletion
 - 🎥 Add lectures with YouTube embed support
-- 🔍 Search and pagination (3 courses/page, 1 lecture/page)
+- 🔍 Search and pagination (4 courses/page, 1 lecture/page)
 - 🔒 Authorization via policies
 
 ---
