@@ -15,7 +15,7 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses = Course::with('user')->latest()->get();
+        $courses = Course::with('user')->latest()->paginate(4);
 
         return view('courses.index', compact('courses'));
     }
@@ -44,8 +44,9 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        $course->load(['user', 'lectures']);
-        return view('courses.show', compact('course'));
+       $lectures = $course->lectures()->orderBy('order')->paginate(1);
+
+       return view('courses.show', compact('course', 'lectures'));
     }
 
     public function destroy(Course $course)

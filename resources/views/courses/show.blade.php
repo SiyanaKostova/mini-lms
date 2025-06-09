@@ -1,12 +1,13 @@
 <x-layout :title="$course->title">
     <div class="mb-6">
-        <h1 class="text-2xl font-bold">{{ $course->title }}</h1>
-        <p class="text-gray-700 mt-2">{{ $course->description }}</p>
+        <h1 class="text-3xl font-bold text-gray-800">{{ $course->title }}</h1>
+        <p class="text-gray-600 mt-2">{{ $course->description }}</p>
 
         @auth
             @if (auth()->id() === $course->user_id)
-                <div class="flex items-center justify-between mt-4">
-                    <a href="{{ route('lectures.create', $course) }}" class="bg-green-600 text-white px-4 py-2 rounded">
+                <div class="flex items-center justify-between mt-6">
+                    <a href="{{ route('lectures.create', $course) }}"
+                       class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">
                         + Add Lecture
                     </a>
 
@@ -14,7 +15,7 @@
                           onsubmit="return confirm('Are you sure you want to delete this course?');">
                         @csrf
                         @method('DELETE')
-                        <button class="bg-red-600 text-white px-4 py-2 rounded">
+                        <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">
                             Delete Course
                         </button>
                     </form>
@@ -23,20 +24,28 @@
         @endauth
     </div>
 
-    <h2 class="text-lg font-semibold mb-4">Lectures</h2>
+    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Lecture</h2>
 
-    @if ($course->lectures->count())
-        <ul class="space-y-4">
-            @foreach ($course->lectures as $lecture)
-                <li class="bg-white p-4 rounded shadow">
-                    <h3 class="text-blue-700 font-semibold">{{ $lecture->order }}. {{ $lecture->title }}</h3>
-                    <p class="text-sm text-gray-700">{{ $lecture->description }}</p>
-                    <div class="mt-2 aspect-video">
-                        <iframe width="100%" height="315" src="{{ $lecture->youtube_url }}" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
+    @if ($lectures->count())
+        @foreach ($lectures as $lecture)
+            <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-[1.02] hover:shadow-xl transition duration-300 ease-in-out border border-gray-200 hover:border-blue-300">
+                <h3 class="text-xl font-semibold text-blue-800 mb-1 tracking-tight">
+                    {{ $lecture->order }}. {{ $lecture->title }}
+                </h3>
+                <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                    {{ $lecture->description }}
+                </p>
+
+                <div class="aspect-video overflow-hidden rounded-lg border border-gray-300 hover:border-blue-500 transition">
+                    <iframe class="w-full h-full rounded" src="{{ $lecture->youtube_url }}"
+                            frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        @endforeach
+
+        <div class="mt-6">
+            {{ $lectures->links() }}
+        </div>
     @else
         <p class="text-gray-600">No lectures added yet.</p>
     @endif
