@@ -17,7 +17,7 @@ class SearchController extends Controller
                 $q->where('title', 'like', "%{$query}%");
             })
             ->latest()
-            ->get();
+            ->paginate(3); // ✅ Add pagination here
 
         return view('courses.index', compact('courses'));
     }
