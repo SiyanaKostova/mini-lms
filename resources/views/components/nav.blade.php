@@ -1,3 +1,8 @@
+<form action="{{ route('search') }}" method="GET" class="ml-auto mr-4">
+    <input type="text" name="q" value="{{ request('q') }}" placeholder="Search courses or lectures..."
+        class="px-3 py-1 border rounded text-sm" />
+</form>
+
 <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
     <a href="{{ route('courses.index') }}" class="text-lg font-bold text-blue-700">Mini LMS</a>
     <div class="flex items-center gap-4">

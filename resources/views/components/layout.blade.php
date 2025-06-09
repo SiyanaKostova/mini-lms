@@ -10,6 +10,7 @@
 
     <main class="max-w-4xl mx-auto mt-10 p-6">
         {{ $slot }}
+
     </main>
 </body>
 </html>

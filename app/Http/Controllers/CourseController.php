@@ -6,10 +6,13 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 
 class CourseController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $courses = Course::with('user')->latest()->get();
